@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>GT SNUS</title>
+</head>
+<body>
+    <div class="background"></div>
+    <h1>GT SNUS</h1>
+    <ul id="productList">
+        {% for product, details in availability.items() %}
+            <li>
+                <img src="{{ details['image'] }}" alt="{{ product }}" class="product-image">
+                <div class="product-details">
+                    <h2>{{ product }}</h2>
+                    <p>Preis : {{ details['preis'] }}€</p>
+                    <p>Nikotin : {{ details['nikotin'] }}mg / g</p>
+                    <p>Geschmack : {{ details['geschmack'] }}</p>
+                    {% if details['available'] %}
+                        <p class="availability available">Verfügbar</p>
+                        <p>Noch {{ details['remaining'] }} Stück</p>
+                    {% else %}
+                        <p class="availability unavailable">Nicht Verfügbar</p>
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
